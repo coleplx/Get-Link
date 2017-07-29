@@ -1,0 +1,67 @@
+      <div class="row">
+        <div class="col-md-6 col-md-offset-2 col-sm-8 col-sm-offset-2" >
+
+            <input type="text" class="form-control" placeholder="Nhập link cần tải hoặc tên file cần tìm vào đây" ng-model="url" ng-required="required" ng-keydown="$event.which === 13 && getLink()" ng-paste="pastedLink($event.originalEvent)" ng-readonly="loading" uib-typeahead="address for address in find_file($viewValue)" typeahead-template-url="fileSuggestTemplate.html" typeahead-min-length="2" typeahead-wait-ms="100" typeahead-on-select="onFileSelect($item, $model, $label)">
+            <script type="text/ng-template" id="fileSuggestTemplate.html">
+                <a style="min-width: 550px;">
+                    <span ng-bind-html="match.model.file.name | uibTypeaheadHighlight:query"></span>
+                    <br />
+                    <span class="file-url"><img class="img-rounded" src="./images/favicon/{{match.model.host}}.png" width="20px" /> {{match.model.url}}</span>
+                </a>
+            </script>
+
+        </div>
+        <div class="col-md-2 col-md-offset-0 col-sm-4 col-sm-offset-4">
+          <input type="text" class="form-control input-password" placeholder="Mật khẩu (nếu có)" ng-model="password" ng-keydown="$event.which === 13 && getLink()" ng-readonly="loading">
+        </div>
+      </div>
+
+      <div class="row getlink">
+        <div class="btn-group">
+          <button type="button" class="btn btn-success btn-lg" id="btnGetLink" ng-click="getLink()" ng-disabled="loading"><i class="fa {{ loading ? 'fa-circle-o-notch fa-spin fa-fw' : 'fa-arrow-circle-o-down'}}" aria-hidden="true"></i> GET LINK</button>
+          <button type="button" class="btn btn-danger btn-lg" id="btnReset" ng-click="reset()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> RESET</button>
+        </div>
+      </div>
+
+      <div class="row loading ng-hide" ng-show="loading">
+        <img src="./images/loading.gif" />
+      </div>
+
+      <div class="row ng-hide" ng-show="error">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="alert alert-danger alert-dismissible" role="alert" style="text-align: center">
+            <button type="button" class="close" aria-label="Close" ng-click="error=false"><span aria-hidden="true">&times;</span></button>
+            <h4><i class="fa fa-times-circle"></i> Lỗi</h4>
+             {{ error }}
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+      <ul class="pagination" uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" previous-text="Previous" template-url="template/pagination/pagination.html" ng-show="pageCount() > 1"></ul>
+      </div>
+
+    <script id="template/pagination/pagination.html" type="text/ng-template">
+        <ul class="pagination">
+            <li ng-if="directionLinks" ng-class="{hide: noPrevious()}"><a href ng-click="selectPage(page - 1)" title="Trang trước"><i class="fa fa-chevron-left"></i></a></li>
+            <li ng-repeat="page in pages track by $index" ng-class="{active: page.active}"><a href ng-click="selectPage(page.number)">{{page.text}}</a></li>
+            <li ng-if="directionLinks" ng-class="{hide: noNext()}"><a href ng-click="selectPage(page + 1)" title="Trang sau"><i class="fa fa-chevron-right"></i></a></li>
+        </ul>
+    </script>
+
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div ng-repeat="result in filteredResults track by $id(result)" get-result="result" open="open"></div>
+
+          <script type="text/ng-template" id="closeModalContent.html">
+              <div class="modal-body text-center">
+                  <i class="fa fa-question-circle-o text-success fa-5x" aria-hidden="true"></i>
+                  <h2 class="text-muted"><small>Bạn có chắc chắn muốn xóa không ?</small></h2>
+              </div>
+              <div class="modal-footer text-center">
+                  <button class="btn btn-danger btn-lg" type="button" ng-click="closeAll()"><i class="fa fa-trash" aria-hidden="true"></i> Xóa tất cả</button>
+                  <button class="btn btn-primary btn-lg" type="button" ng-click="closeAt(index)"><i class="fa fa-eraser" aria-hidden="true"></i> Xóa</button>
+              </div>
+          </script>
+        </div>
+      </div>

@@ -1,0 +1,77 @@
+<div class="panel panel-default panel-success get-result">
+  <div class="panel-heading {{$parent.$first && 'active'}}">
+    <h3 class="panel-title">
+        <img class="img-rounded" src="./images/favicon/{{ item.host }}.png" alt="{{ item.host }}" style="width:17px" />  <a href="{{item.url}}" target="_blank">{{ item.file.name }}</a>
+    	<button type="button" class="close" ng-click="open($parent.$index)">
+    		<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+		</button>
+    </h3>
+  </div>
+  <div class="panel-body">
+    <ng-include src="'result-file.html'" ng-if="item.type == 'file'"></ng-include>
+    <ng-include src="'result-shortlink.html'" ng-if="item.type == 'shortlink'"></ng-include>
+    <div class="row text-center">
+        <div ng-bind-html="instantviewData" ng-class="paddingCls"></div>
+    </div>
+  </div>
+</div>
+
+<script type="text/ng-template" id="result-file.html">
+    <div class="row">
+		<div class="col-sm-1 col-xs-12 text-center">
+            <img ng-if="item.image" ng-mouseover="viewImage($event)" ng-mousemove="viewImageMove($event)" ng-mouseleave="viewImageLeave()" class="img-rounded result-image" src={{item.image}} style="width:50px" />
+            <img ng-if="!item.image" src="./images/filetypes/{{ item.file.type }}.png" width="50px" />
+		</div>
+		<div class="col-sm-8 col-xs-10 text-xs-center">
+			<p><i class="fa fa-server text-info" aria-hidden="true"></i> Dung lượng: <label class="label label-success"><i class="fa fa fa-database"></i> {{ item.file.size | bytes }}</label></p>
+    		<p>
+    			<div class="pull-left"><i class="fa fa-download text-info" aria-hidden="true"></i> Download:</div>&nbsp;
+                <!-- Single button -->
+                <div class="btn-group" ng-if="item.sub_link.length > 0">
+                  <button type="button" class="btn btn-waring btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ item.sub_link[0].name }} <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li ng-repeat="link in item.sub_link"><a href="{{link.direct_link}}" target="_blank" download="{{item.file.name}} - {{link.name}}.{{item.file.type}}">{{link.name}} <span class="badge badge-info pull-right">{{link.size | bytes}}</span></a></li>
+                  </ul>
+                </div>
+                <span class="label label-default">{{ item.download_link }}</span>
+    		</p>
+		</div>
+
+		<div class="col-sm-3 col-xs-12 text-center">
+			<a ng-if="item.preview_link" ng-click="instantView($event)" href="{{item.preview_link}}" class="btn btn-danger btn-lg btnPreview" tooltip-placement="bottom" uib-tooltip="Xem trước">
+			  <i class="fa fa-eye" aria-hidden="true"></i>
+			</a>
+			<a ng-if="!item.preview_link" class="btn btn-danger btn-lg btnPreview" href="javascript://" tooltip-placement="bottom" uib-tooltip="Xem trước không khả dụng" disabled>
+			  <i class="fa fa-eye-slash" aria-hidden="true"></i>
+			</a>
+			<a class="btn btn-success btn-lg btnDownload" ng-click="openDownloader(item.download_link)" uib-tooltip="Tải xuống" tooltip-placement="bottom">
+			  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+			</a>
+		</div>
+  	</div>
+</script>
+
+<script type="text/ng-template" id="result-shortlink.html">
+    <div class="row">
+		<div class="col-sm-1 col-xs-2 text-center">
+            <img ng-mouseover="viewImage($event)" ng-mousemove="viewImageMove($event)" ng-mouseleave="viewImageLeave()" class="img-rounded result-image" src="{{item.image}}" width="50px" />
+		</div>
+		<div class="col-sm-8 col-xs-10">
+			<p><i class="fa fa-link text-info" aria-hidden="true"></i> Link rút gọn: <label class="label label-success">{{ item.url }}</label></p>
+    		<p>
+    			<div class="pull-left"><i class="fa fa-download text-info" aria-hidden="true"></i> Link gốc:</div>&nbsp;
+                <span class="label label-default">{{ item.download_link }}</span>
+    		</p>
+		</div>
+
+		<div class="col-sm-3 col-xs-8">
+			<a class="btn btn-success btn-lg pull-right btnDownload" ng-click="openDownloader(item.download_link)" uib-tooltip="Truy cập" tooltip-placement="top">
+			  <i class="fa fa-sign-out" aria-hidden="true"></i>
+			</a>
+		    <img ng-if="item.safe" src="./images/safe.png" uib-tooltip="URL an toàn" width="50px">
+            <img ng-if="!item.safe" src="./images/danger.png" uib-tooltip="URL có chứa mã độc hoặc lừa đảo" width="50px">
+		</div>
+  	</div>
+</script>

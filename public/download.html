@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Tải xuống {{ file.name }}</title>
+
+    <link href="./libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .navbar-default .navbar-nav>li>.status-host {
+            color: #fff;
+        }
+        .navbar-default .navbar-nav>li>.status-host:hover {
+            color: #fff;
+            background-color: #309b30;
+        }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><img src="./images/logo.png"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/"><i class="fa fa-cloud-download" aria-hidden="true"></i> Download</a></li>
+            <li><a href="/tutorial"><i class="fa fa-life-ring" aria-hidden="true"></i> Hướng dẫn</a></li>
+            <li><a href="/donate">Donate <i class="fa fa-child" aria-hidden="true"></i></a></li>
+            <li>
+              <a class="bookmarklet" style="color: #207720;font-weight: bold;" href="javascript:(function(){window.open('http://lomdom.net/'+encodeURIComponent(location.href)+'')})();" tooltip-placement="bottom" uib-tooltip="Kéo thả vào thanh dấu trang Bookmark"><i class="fa fa-bookmark" aria-hidden="true"></i> Getlink Tool</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+                {% if preview_link.length %}
+                <a href="{{ preview_link }}" class="btn btn-default btn-success status-host">
+                  <i class="fa fa-signal" aria-hidden="true"></i> Xem trực tiếp
+                </a>
+                {% endif %}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="download-info container">
+      <div class="jumbotron">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="file-info">
+              <p class="file-name"><img src="./images/filetypes/{{file.type}}.png" width="50px" onerror="this.src = './images/filetypes/default.png';" /> {{ file.name }}</p>
+              <p class="file-size"><i class="fa fa-server text-info" aria-hidden="true"></i> Dung lượng: <span class="label label-primary"><i class="fa fa-database"></i> <span class="filesize">{{ file.size }}</span></span></p>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="file-download">
+              <a href="{{ stream_link }}" download><i class="fa fa-cloud-download fa-5x" aria-hidden="true"></i></a>
+              <p><a href="{{ stream_link }}" download>Ấn để tải xuống</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="row file-share">
+          <div class="col-md-8 col-md-offset-2">
+            <h4 class="text-info">Hãy chia sẻ cùng bạn bè</h4>
+            <span class='st_facebook_large' displayText='Facebook'></span>
+            <span class='st_googleplus_large' displayText='Google +'></span>
+            <span class='st_twitter_large' displayText='Tweet'></span>
+            <div class="input-group" style="margin-top: 15px;">
+              <span class="input-group-addon"><i class="fa fa-external-link" aria-hidden="true"></i> Link gốc</span>
+              <input type="text" id="orignalLink" class="form-control" value="{{ url }}" readonly>
+              <span class="input-group-addon" data-toggle="tooltip" data-placement="right" title="Copy"><a href="javascript://" class="text-copy" data-clipboard-target="#orignalLink" ><i class="fa fa-clone" aria-hidden="true"></i></a></span>
+            </div>
+            <div class="input-group" style="margin-top: 5px;">
+              <span class="input-group-addon"><i class="fa fa-link" aria-hidden="true"></i> Link tải&nbsp;&nbsp;</span>
+              <input type="text" id="downloadLink" class="form-control" readonly>
+              <span class="input-group-addon" data-toggle="tooltip" data-placement="right" title="Copy"><a href="javascript://" class="text-copy" data-clipboard-target="#downloadLink"><i class="fa fa-clone" aria-hidden="true"></i></a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Made with <i class="fa fa-heart text-danger" aria-hidden="true"></i> by Hưng Việt</p>
+      </div>
+    </footer>
+
+    <script src="./libs/jquery/dist/jquery.min.js"></script>
+    <script src="./libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./libs/clipboard/dist/clipboard.min.js"></script>
+    <script src="./js/main.js"></script>
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "f505aef5-5929-4699-bf23-4b34ef59dda0", doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
+  </body>
+</html>

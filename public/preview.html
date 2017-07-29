@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Đang xem {{ file.name }}</title>
+
+    <link href="./libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        .navbar-default .navbar-nav>li>a {
+            color: #fff;
+        }
+        .navbar-default .navbar-nav>li>a:hover {
+            color: #fff;
+            background-color: #309b30;
+        }
+    </style>
+
+    <script src="./libs/jwplayer/jwplayer.js"></script>
+    <script>
+        jwplayer.key="dWwDdbLI0ul1clbtlw+4/UHPxlYmLoE9Ii9QEw==";
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><img src="./images/logo.png"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active" style="margin-right:5px"><a href="#"><i class="fa fa-file" aria-hidden="true"></i> {{ file.name }}</a></li>
+            <li class="active" style="margin-right:5px"><a href="#"><i class="fa fa-database" aria-hidden="true"></i> <span class="filesize">{{ file.size }}</span></a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a class="status-host btn btn-default btn-success" href="{{ download_link}}">
+                <i class="fa fa-download" aria-hidden="true"></i> Tải xuống
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="preview container">
+        <div class="row text-center" style="padding-top:10px;">
+            {% if html.length %}
+                {{ html | safe }}
+            {% else %}
+                <i class="fa fa-eye-slash fa-4x text-warning" aria-hidden="true"></i>
+                <h3>Không có bản xem trước nào !</h3>
+            {% endif %}
+        </div>
+        <div class="row file-share text-center">
+          <div class="col-md-8 col-md-offset-2">
+            <h4 class="text-info">Hãy chia sẻ cùng bạn bè</h4>
+            <span class='st_facebook_large' displayText='Facebook'></span>
+            <span class='st_googleplus_large' displayText='Google +'></span>
+            <span class='st_twitter_large' displayText='Tweet'></span>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-external-link" aria-hidden="true"></i> Link gốc</span>
+              <input type="text" id="orignalLink" class="form-control" value="{{ url }}" readonly>
+              <span class="input-group-addon" data-toggle="tooltip" data-placement="right" title="Copy"><a href="javascript://" class="text-copy" data-clipboard-target="#orignalLink" ><i class="fa fa-clone" aria-hidden="true"></i></a></span>
+            </div>
+            <div class="input-group" style="margin-top: 5px;">
+              <span class="input-group-addon"><i class="fa fa-link" aria-hidden="true"></i> Link tải&nbsp;&nbsp;</span>
+              <input type="text" id="downloadLink" class="form-control" readonly>
+              <span class="input-group-addon" data-toggle="tooltip" data-placement="right" title="Copy"><a href="javascript://" class="text-copy" data-clipboard-target="#downloadLink"><i class="fa fa-clone" aria-hidden="true"></i></a></span>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Made with <i class="fa fa-heart text-danger" aria-hidden="true"></i> by Hưng Việt</p>
+      </div>
+    </footer>
+
+    <script src="./libs/jquery/dist/jquery.min.js"></script>
+    <script src="./libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./libs/clipboard/dist/clipboard.min.js"></script>
+    <script src="./js/main.js"></script>
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "f505aef5-5929-4699-bf23-4b34ef59dda0", doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
+  </body>
+</html>

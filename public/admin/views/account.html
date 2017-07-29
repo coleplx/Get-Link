@@ -1,0 +1,126 @@
+
+<div class="row" ng-init="init()">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Danh sách Tài khoản</h3>
+                <div class="pull-right">
+                    <button type="button" class="btn bg-olive" ng-click="add()"><i class="fa fa-plus-circle"></i> Thêm tài khoản</i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered table-hover dataTable" role="grid">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending">#</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">Host</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">Tài khoản</th>
+                                        <th tabindex="0" aria-controls="example2" rowspan="1" colspan="1">Mật khẩu</th>
+                                        <th class="sorting text-center" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">Sử dụng</th>
+                                        <th class="text-center" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr role="row" class="odd" ng-repeat="account in data">
+                                        <td class="sorting_1">{{$index + 1}}</td>
+                                        <td><span class="badge bg-light-blue"><img width="16px" src="../images/favicon/{{account.host}}.png" /></span> {{account.host}}</td>
+                                        <td>{{account.username}}</td>
+                                        <td>{{account.password | limitTo:10:0}}****</td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn bg-olive" ng-disabled="account.active"><i class="fa fa-check" ></i></button>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group">
+                                              <button type="button" class="btn btn-primary" ng-click="edit(account)"><i class="fa fa-info"></i> Chi tiết</button>
+                                              <button type="button" class="btn btn-danger" ng-click="delete(account)">Xóa <i class="fa fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center">
+                            <div class="dataTables_info" id="example2_info" role="status" aria-live="polite"><h4><span class="label label-default">Có tất cả {{data.length}} tài khoản</span></h4></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+<script type="text/ng-template" id="modalEdit.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{newItem.type == 'edit' && 'Sửa tài khoản' || 'Thêm tài khoản'}}</h3>
+    </div>
+    <div class="modal-body">
+        <div class="box-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label>Host</label>
+                    <ui-select ng-model="newItem.host">
+                        <ui-select-match placeholder="Chọn loại tài khoản...">
+                            <img width="15px" src="../images/favicon/{{newItem.host}}.png" /> <span class="label label-primary" ng-bind="newItem.host"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in (hostArray | filter: $select.search)">
+                            <img width="15px" src="../images/favicon/{{item}}.png" /> <span ng-bind="item"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div class="form-group">
+                  <label>Tài khoản</label>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <input type="text" class="form-control" placeholder="Tài khoản" ng-model="newItem.username">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Mật khẩu</label>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                    <input type="text" class="form-control" placeholder="Mật khẩu" ng-model="newItem.password">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                    <input type="checkbox" class="flat-red" ng-model="newItem.active">
+                    Sử dụng mặc định</label>
+              </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">{{newItem.type == 'edit' && 'Cập nhập' || 'Thêm'}}</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">Bỏ qua</button>
+    </div>
+    <script type="text/javascript">
+        $('input[type="checkbox"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_flat-green'
+        });
+    </script>
+</script>
+
+<script type="text/ng-template" id="modalDelete.html">
+    <div class="modal-header">
+        <h3 class="modal-title text-center"><i class="fa fa-question fa-4x text-danger"></i></h3>
+    </div>
+    <div class="modal-body">
+        <h3 class="text-center">Bạn có chắc chắn muốn xóa ?</h3>
+    </div>
+    <div class="text-center margin" style="padding: 10px">
+        <button class="btn btn-primary btn-lg" type="button" ng-click="ok()">Chấp nhận</button>
+        <button class="btn btn-default btn-lg" type="button" ng-click="cancel()">Bỏ qua</button>
+    </div>
+</script>

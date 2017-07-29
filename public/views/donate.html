@@ -1,0 +1,77 @@
+<div class="row">
+	<div class="donate-header">
+		<img class="img-responsive" src="../images/donate-header.png" />
+	</div>
+	<div class="donate-method text-center">
+		<a href="javascript:" ng-click="type='Card'"><img class="img-thumbnail img-responsive {{type=='Card' && 'active'}}" src="../images/donate-viettel.jpg" /></a>
+		<a href="javascript:" ng-click="type='Bank'"><img class="img-thumbnail img-responsive {{type=='Bank' && 'active'}}" src="../images/donate-vcb.jpg" /></a>
+		<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PA56LXJQQYJGU" target="_bank"><img class="img-thumbnail img-responsive" src="../images/donate-paypal.jpg" /></a>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="donate-card text-center" ng-if="type=='Card'">
+				<form class="form-horizontal">
+
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">Nhà mạng</label>
+				    <div class="col-sm-10">
+				      	<select class="form-control input-lg" ng-model="data.net">
+						  <option value="Viettel">Viettel</option>
+						  <option value="Mobifone">Mobifone</option>
+						  <option value="Vinaphone">Vinaphone</option>
+						</select>
+				    </div>
+				  </div>
+
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">Serial</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" placeholder="Số serial thẻ" ng-model="data.serial">
+				    </div>
+				  </div>
+
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">Số thẻ</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" placeholder="Số thẻ cào" ng-model="data.number">
+				    </div>
+				  </div>
+
+				  	<div class="form-group">
+					  <label class="col-sm-2 control-label">Góp ý</label>
+					  	<div class="col-sm-10">
+				    		<textarea class="form-control" rows="2" id="comment" placeholder="Chúng tôi sẽ tiếp thu và ghi nhận mọi đóng góp của bạn !" ng-model="data.comment"></textarea>
+				    	</div>
+					</div>
+
+				  <div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10">
+				      <button type="submit" class="btn btn-primary" ng-click="add_donate()"><i class="fa fa-child fa-2x"></i> ỦNG HỘ</button>
+				    </div>
+				  </div>
+				</form>
+			</div>
+
+			<div class="donate-bank text-center" ng-if="type=='Bank'">
+				<p class="bg-primary">Mọi đóng góp qua ngân hàng xin gửi về:</p>
+				<blockquote>
+					<p>Ngân hàng: <label class="label label-info">Đang cập nhật</label></p>
+					<p>Số tài khoản: <label class="label label-info">Đang cập nhật</label></p>
+					<p>Chủ tài khoản: <label class="label label-info">Đang cập nhật</label></p>
+				</blockquote>
+			</div>
+			<script type="text/ng-template" id="myModalContent.html">
+		        <div class="modal-body text-center">
+		        	<i class="fa fa-check text-success fa-5x" aria-hidden="true" ng-if="success"></i>
+		        	<i class="fa fa-exclamation-circle text-danger fa-5x" aria-hidden="true" ng-if="!success"></i>
+		            <h2 class="text-muted"><small>{{ message }}</small></h2>
+		        </div>
+		        <div class="modal-footer text-center">
+		            <button class="btn btn-primary btn-lg" type="button" ng-click="close()"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+		        </div>
+		    </script>
+		</div>
+	</div>
+
+</div>

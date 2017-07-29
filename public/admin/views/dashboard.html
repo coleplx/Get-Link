@@ -1,0 +1,121 @@
+<div class="row" ng-init="init()">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-cogs"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">CPU Traffic</span>
+              <span class="info-box-number">{{data.cpu}}<small>%</small></span>
+              <div class="progress sm">
+                <div class="progress-bar bg-aqua" style="width: {{data.cpu}}%"></div>
+              </div>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-link"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Link Generated</span>
+              <span class="info-box-number">{{data.total_link | number}}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="fa fa-user"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Visitor</span>
+              <span class="info-box-number">{{data.visitor | number}}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+
+        <!-- fix for small devices only -->
+        <div class="clearfix visible-sm-block"></div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-level-up"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Online</span>
+              <span class="info-box-number">{{data.online | number}}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Biểu đồ báo cáo</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="box-body">
+                aaaa
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="box box-solid bg-light-blue-gradient">
+            <div class="box-header ui-sortable-handle" style="cursor: move;">
+              <!-- tools box -->
+              <div class="pull-right box-tools">
+                <button type="button" class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px;" data-original-title="Collapse">
+                  <i class="fa fa-minus"></i></button>
+              </div>
+              <!-- /. tools -->
+
+              <i class="fa fa-map-marker"></i>
+
+              <h3 class="box-title">
+                Visitors
+              </h3>
+            </div>
+            <div class="box-body" style="display: block;">
+              <div id="world-map" style="height: 250px; width: 100%;"><div class="jvectormap-container" style="width: 100%; height: 100%; position: relative; overflow: hidden; background-color: transparent;"><svg width="514" height="250"><g></g></svg><div class="jvectormap-zoomin">+</div><div class="jvectormap-zoomout">−</div></div></div>
+            </div>
+            <!-- /.box-body-->
+            <div class="box-footer no-border" style="display: block;">
+              <div class="row">
+                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                  <div id="sparkline-1"><canvas width="80" height="50" style="display: inline-block; width: 80px; height: 50px; vertical-align: top;"></canvas></div>
+                  <div class="knob-label">Visitors</div>
+                </div>
+                <!-- ./col -->
+                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                  <div id="sparkline-2"><canvas width="80" height="50" style="display: inline-block; width: 80px; height: 50px; vertical-align: top;"></canvas></div>
+                  <div class="knob-label">Online</div>
+                </div>
+                <!-- ./col -->
+                <div class="col-xs-4 text-center">
+                  <div id="sparkline-3"><canvas width="80" height="50" style="display: inline-block; width: 80px; height: 50px; vertical-align: top;"></canvas></div>
+                  <div class="knob-label">Exists</div>
+                </div>
+                <!-- ./col -->
+              </div>
+              <!-- /.row -->
+            </div>
+          </div>
+    </div>
+</div>

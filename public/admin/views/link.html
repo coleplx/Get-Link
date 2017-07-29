@@ -1,0 +1,105 @@
+
+<div class="row" ng-init="init()">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Danh sách Link</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered table-hover dataTable" role="grid">
+                                <thead>
+                                    <tr role="row">
+                                        <th>Thời gian</th>
+                                        <th>Host</th>
+                                        <th>Filename</th>
+                                        <th>Size</th>
+                                        <th>IP</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr role="row" class="odd" ng-repeat="item in data">
+                                        <td>{{item.createdAt | timeAgo}}</td>
+                                        <td><span class="badge bg-light-blue"><img width="16px" src="../images/favicon/{{item.host}}.png" /></span> {{item.host}}</td>
+                                        <td>{{item.file.name}}</td>
+                                        <td>{{item.file.size | bytes}}</td>
+                                        <td>{{item.ip}}</td>
+                                        <td class="text-center">
+                                          <button type="button" class="btn btn-primary" ng-click="view(item)"><i class="fa fa-eye"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center">
+                            <div class="dataTables_info" id="example2_info" role="status" aria-live="polite"><h4><span class="label label-default">Có tất cả {{data.length}} tài khoản</span></h4></div>
+                        </div>
+                        <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+<script type="text/ng-template" id="modalView.html">
+    <div class="modal-header">
+        <h3 class="modal-title pull-left"><img width="22px" src="../images/favicon/{{item.host}}.png" /> {{item.file.name}}</h3>
+        <span class="pull-right">{{item.createdAt | timeAgo}}</span>
+    </div>
+    <div class="modal-body">
+        <div class="box-body">
+            <div class="row margin">
+                <div class="col-md-12 text-center">
+                    <h4><span class="label label-default"><a href="{{item.url}}" target="_bank">{{item.url}}</a></span></h4>
+                </div>
+            </div>
+            <div class="row" style="line-height:1.7">
+                <div class="col-md-6">
+                    <div class="col-md-3 text-right">
+                        <b>ID:</b><br />
+                        <b>IP:</b><br />
+                        <b>Host:</b>
+                    </div>
+                    <div class="col-md-9">
+                        <a href="../download-{{item._id}}" target="_blank">{{item._id}}</a><br />
+                        <i>{{item.ip}}</i><br />
+                        <span class="label label-primary"><img width="17px" src="../images/favicon/{{item.host}}.png" /> {{item.host}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-3 text-right">
+                        <b>File name:</b><br />
+                        <b>File size:</b><br />
+                        <b>File type:</b>
+                    </div>
+                    <div class="col-md-9">
+                        {{item.file.name}}<br />
+                        <span class="label label-info"><i class="fa fa-database"></i> {{item.file.size | bytes}}</span><br />
+                        <span class="label label-primary">{{item.file.type}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin text-center" ng-if="item.image">
+                <strong>Preview</strong><br />
+                <img class="img-thumbnail" src="{{item.image}}" width="150px" />
+            </div>
+            <div class="row margin text-center">
+                <strong>Download</strong><br/>
+                <span class="label label-default"><a href="{{item.directLink}}" target="_bank">{{item.directLink}}</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" type="button" ng-click="cancel()">Đóng</button>
+    </div>
+</script>

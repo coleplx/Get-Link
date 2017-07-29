@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-language" content="vi" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tìm kiếm và tải link download trực tiếp tốc độ cao từ hàng trăm website hàng đầu Fshare, 4share, Tenlua, Upfile, Youtube,.... Và có thể xem trực tiếp video, phim, nhạc, ảnh, tài liệu.">
+    <meta name="keywords" content="get link,download,fshare,4share,tenlua,upfile,youtube,tai file">
+    <meta name="author" content="SMawbmcgVmnhu4d0">
+    <meta name="google-site-verification" content="d41y2lpGEZoMf5S5yzEII9XxU0O9FgNCi5fOlIY5Agw" />
+    <base href="/">
+    <meta name="msvalidate.01" content="BAFD7F1D3827BE7A5C2D5B82273EF042" />
+    <meta property="fb:app_id" content="1204802946268919" />
+
+    <title ng-bind="$state.pageTitle + ' - Fshare, 4Share, Tenlua, Upfile, Youtube,...'"></title>
+    <link rel="shortcut icon" href="./images/favicon.png">
+    <link rel="alternate" href="http://lomdom.net" hreflang="vi-vn" />
+
+    <link href="./libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="./libs/animate.css/animate.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+    <meta property="og:url" content="http://lomdom.net" />
+    <meta property="og:title" content="Get link siêu tốc - Fshare, 4Share, Tenlua, Upfile, Youtube,..." />
+    <meta property="og:description" content="Tìm kiếm và tải link download trực tiếp tốc độ cao từ hàng trăm website hàng đầu Fshare, 4share, Tenlua, Upfile, Youtube,.... Và có thể xem trực tiếp video, phim, nhạc, ảnh, tài liệu." />
+    <meta property="og:image" content="http://lomdom.net/images/timeline.jpg" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><img src="./images/logo.png" alt="Get link siêu tốc fshare, 4share, tenlua, upfile, youtube"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="{{($state.name=='home' || $state.name=='getlink') && 'active'}}"><a ui-sref="home"><i class="fa fa-cloud-download" aria-hidden="true"></i> Download</a></li>
+            <li class="{{$state.name=='tutorial' && 'active'}}"><a ui-sref="tutorial"><i class="fa fa-life-ring" aria-hidden="true"></i> Hướng dẫn</a></li>
+            <li class="{{$state.name=='donate' && 'active'}}"><a ui-sref="donate">Donate <i class="fa fa-child" aria-hidden="true"></i></a></li>
+            <li>
+              <a class="bookmarklet" style="color: #207720;font-weight: bold;" href="javascript:(function(){window.open('http://lomdom.net/'+encodeURIComponent(location.href)+'')})();" tooltip-placement="bottom" uib-tooltip="Kéo thả vào thanh dấu trang Bookmark"><i class="fa fa-bookmark" aria-hidden="true"></i> GetLink Tool</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right" ng-controller="statusController">
+            <li>
+              <button type="button" class="btn btn-default btn-success status-host" uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom-left">
+                <i class="fa fa-signal" aria-hidden="true"></i> Trạng thái Host
+              </button>
+            </li>
+            <script type="text/ng-template" id="statusBox.html">
+              <div class="status-box">
+                  <div class="push-bit">
+                    <small>Băng thông: <strong>{{serverLoad}} %</strong></small>
+                    </div>
+                  <div class="progress progress-mini push-bit">
+                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{{serverLoad}}" aria-valuemin="0" aria-valuemax="100" style="width: {{serverLoad}}%"></div>
+                    </div>
+                <ul class="list-inline list-unstyled">
+                  <li ng-repeat="item in lists"><img width="40px" src="./images/hosts/{{item.host}}.jpg" class="img-circle" alt={{item.status}} title="{{item.host}} - {{item.status}}"><div class="status {{item.status=='Running' ? 'spinner' : 'spinner2'}}"></div></li>
+                </ul>
+              </div>
+            </script>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="wraper container">
+      <div ui-view></div>
+    </div>
+
+    <div class="wraper2 container" ng-controller="historyController">
+      <div class="row">
+        <div class="col-md-7 nopadding" style="border-right: 1px solid #fafafa">
+          <div class="page-header">
+            <h4><i class="fa fa-history" aria-hidden="true"></i> Tệp tin gần đây <i class="fa fa-circle-o-notch fa-spin fa-fw" ng-show="loading"></i></h4>
+          </div>
+
+          <div class="box ng-hide" ng-hide="loading" ng-repeat="file in listFiles">
+            <div class="filename"><i class="fa {{ file.file.type | fileicon }}"></i> <a href="/{{file.url}}" title="{{ file.download_link }}">{{file.file.name}}</a></div>
+            <div class="fileinfo">
+              <span class="label label-info"><a ng-href="{{ file.url }}" title="{{ file.url }}" target="_blank"><img src="./images/favicon/{{ file.host }}.png" width="11px" alt="{{ file.host }}" /> {{ file.host }}</a></span>
+              <span class="label label-success"><i class="fa fa-database"></i> {{ file.file.size | bytes }}</span>
+              <span class="label label-primary"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ file.time | timeAgo }}</span>
+              <span class="badge" tooltip-placement="right" uib-tooltip="{{ file.ip }}"><i class="fa fa-ellipsis-h" aria-hidden="true"></i> </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="fb-page" data-href="https://www.facebook.com/vipget" data-tabs="timeline" data-width="500" data-height="100" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" adapt_container_width="true"><blockquote cite="https://www.facebook.com/vipget" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/vipget">Lomdom.net - Get link siêu tốc</a></blockquote></div>
+            <div class="fb-comments" data-href="http://lomdom.net" data-width="100%" data-numposts="7" data-order-by="reverse_time"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Made with <i class="fa fa-heart text-danger" aria-hidden="true"></i> <span style="color:#d1ecf3">by Hưng Việt</span></p>
+        <p class="text-muted">get link, download, stream, fshare, 4share, tenlua, upfile, youtube</p>
+      </div>
+    </footer>
+
+    <script src="./libs/jquery/dist/jquery.min.js"></script>
+    <script src="./libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./js/main.js"></script>
+
+    <script src="./libs/angular/angular.min.js"></script>
+    <script src="./libs/angular-animate/angular-animate.min.js"></script>
+    <script src="./libs/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="./libs/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="./libs/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script src="./libs/angular-timeago/dist/angular-timeago-core.min.js"></script>
+    <script src="./libs/angular-timeago/src/languages/time-ago-language-vi_VN.js"></script>
+    <script src="./js/app.js"></script>
+
+    <script src="./libs/jwplayer/jwplayer.js"></script>
+    <script>
+        jwplayer.key="dWwDdbLI0ul1clbtlw+4/UHPxlYmLoE9Ii9QEw==";
+    </script>
+
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=1204802946268919";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-72581125-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
